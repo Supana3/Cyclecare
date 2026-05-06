@@ -12,3 +12,19 @@ A C++ command-line program that tracks menstrual cycles, logs mood, and gives pe
 - Save/load all data from a text file
 
 ## Building
+
+## Current Status
+
+**Implemented Features**:
+- Feature 1: Log Period - captures last period date, cycle length, and period length
+
+**Stubbed (compile but not implemented)**:
+- Feature 2: Log Mood
+- Feature 3: Show Next Period Prediction
+- Feature 4: Show Food Tips
+- Feature 5: Show Cramp Relief Tips
+- Feature 6: Change Theme
+
+**Known Issues**:
+- File save/load is stubbed - data does not persist between runs
+- Phase calculation and next period prediction are stubbed
