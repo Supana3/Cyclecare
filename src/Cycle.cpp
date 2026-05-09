@@ -3,6 +3,7 @@
 #include <sstream>
 #include <iomanip>
 #include <ctime>
+#include <chrono>
 
 Cycle::Cycle() {
     lastPeriodDate = "";              
@@ -62,17 +63,18 @@ std::string Cycle::predictNextPeriod() const {
 
     std::tm tm = {};
     std::istringstream ss(lastPeriodDate);
-    ss >> std::get_time(&tm, "%Y-%m-%d"); 
+    ss >> std::get_time(&tm, "%Y-%m-%d");
     if (ss.fail()) {
         return "";
     }
+
     tm.tm_mday += cycleLength;
     std::mktime(&tm);
 
     std::ostringstream out;
     out << std::put_time(&tm, "%Y-%m-%d");
     return out.str();
-}
+}   
 
 std::string Cycle::getCurrentPhase() const {
     return "";  

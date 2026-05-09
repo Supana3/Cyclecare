@@ -39,11 +39,39 @@ void test_log_period_invalid_length_rejected() {
     std::cout << " PASSED" << std::endl;
 }
 
+void test_predict_next_period_normal() {
+    std::cout << "Test 4: Predict next period normal...";
+    Cycle c;
+    c.logPeriod("2026-01-01");
+    c.setCycleLength(28);
+    assert(c.predictNextPeriod() == "2026-01-29");
+    std::cout << " PASSED" << std::endl;
+}
+
+void test_predict_next_period_no_log() {
+    std::cout << "Test 5: Predict next period with no log...";
+    Cycle c;
+    assert(c.predictNextPeriod() == "");
+    std::cout << " PASSED" << std::endl;
+}
+
+void test_predict_next_period_year_rollover() {
+    std::cout << "Test 6: Predict next period with year rollover...";
+    Cycle c;
+    c.logPeriod("2026-12-20");
+    c.setCycleLength(28);
+    assert(c.predictNextPeriod() == "2027-01-17");
+    std::cout << " PASSED" << std::endl;
+}
+
 int main() {
     std::cout << "Running tests..." << std::endl;
     test_log_period_normal();
-    test_log_period_default_constructor();
-    test_log_period_invalid_length_rejected();
-    std::cout << "\nAll tests passed." << std::endl;
-    return 0;
+        test_log_period_default_constructor();
+        test_log_period_invalid_length_rejected();
+        test_predict_next_period_normal();
+        test_predict_next_period_no_log();
+        test_predict_next_period_year_rollover();
+        std::cout << "\nAll tests passed." << std::endl;
+        return 0;
 }
