@@ -1,5 +1,8 @@
 #include "Cycle.h"
 #include <iostream>
+#include <sstream>
+#include <iomanip>
+#include <ctime>
 
 Cycle::Cycle() {
     lastPeriodDate = "";              
@@ -53,7 +56,22 @@ void Cycle::logPeriod(const std::string& startDate) {
 }
 
 std::string Cycle::predictNextPeriod() const {
-    return ""; 
+    if (lastPeriodDate.empty() || cycleLength <= 0) {
+        return "";
+    }
+
+    std::tm tm = {};
+    std::istringstream ss(lastPeriodDate);
+    ss >> std::get_time(&tm, "%Y-%m-%d"); 
+    if (ss.fail()) {
+        return "";
+    }
+    tm.tm_mday += cycleLength;
+    std::mktime(&tm);
+
+    std::ostringstream out;
+    out << std::put_time(&tm, "%Y-%m-%d");
+    return out.str();
 }
 
 std::string Cycle::getCurrentPhase() const {
@@ -61,5 +79,22 @@ std::string Cycle::getCurrentPhase() const {
 }
 
 int Cycle::daysUntilNextPeriod() const {
-    return 0; 
+    std::string nextPeriod = predictNextPeriod();
+    if (nextPeriod.empty()) {
+        return -1;
+    }
+    
+    std::tm nextTm = {};
+    std::istringstream ss(nextPeriod);
+    ss >> std::get_time(&nextTm, "%Y-%m-%d");
+    if (ss.fail()) {
+        return -1;
+    }
+
+    std::time_t nextTime = std::mktime(&nextTm);
+    std::time_t now = std::time(nullptr);
+
+
+    double diff = std::difftime(nextTime, now);
+    return static_cast<int>(diff / (60 * 60 * 24));
 }

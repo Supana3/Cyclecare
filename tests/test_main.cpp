@@ -17,7 +17,7 @@ void test_log_period_normal() {
 }
 
 void test_log_period_default_constructor() {
-    std::cout << "Test 2: Edge case - (default constructior)...";
+    std::cout << "Test 2: Edge case - (default constructor)...";
     Cycle c;
     assert(c.getLastPeriodDate() == "");
     assert(c.getCycleLength() == 28);
