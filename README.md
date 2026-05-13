@@ -2,29 +2,33 @@
 
 A C++ command-line program that tracks menstrual cycles, logs mood, and gives personalized food and wellness recommendations based on cycle phase.
 
-## Features
-- Track period start/end dates and cycle length
-- Predict next period date based on cycle history
-- Log daily mood (1–5 scale with optional note)
-- Daily food recommendations based on current cycle phase
-- Cramp relief tips and self-care suggestions
-- Change console theme colors based on cycle phase and mood
-- Save/load all data from a text file
+##Implemented and working:
+Log Period — captures last period date, cycle length, and period length
+Predict Next Period — predicts the next period date from the logged period and cycle length, with proper date math (including year rollover)
+Log Mood — records a daily mood entry with date, mood level (1–5), and an optional note; entries are kept in memory for the session
 
-## Building
+Stubbed (declared and compile cleanly, but not implemented):
+Show Food Tips — phase-based food recommendations
+Show Cramp Relief Tips — cramp relief and self-care suggestions
+Change Theme — ANSI color theming based on cycle phase and mood
+File save/load — persistence between runs (this is the biggest gap; nothing is saved when the program exits)
 
-## Current Status
+##Building
+"Requires CMake 3.x" and a C++20-capable compiler.
+    cmake -S . -B build
+    cmake --build build
 
-**Implemented Features**:
-- Feature 1: Log Period - captures last period date, cycle length, and period length
+## Running
+    ./build/cyclecare.exe
 
-**Stubbed (compile but not implemented)**:
-- Feature 2: Log Mood
-- Feature 3: Show Next Period Prediction
-- Feature 4: Show Food Tips
-- Feature 5: Show Cramp Relief Tips
-- Feature 6: Change Theme
+## Running Tests
+    ctest --test-dir build --output-on-failure
 
-**Known Issues**:
-- File save/load is stubbed - data does not persist between runs
-- Phase calculation and next period prediction are stubbed
+All 8 tests should pass.
+
+## Known Limitations
+- No persistence - data is lost when the program exits
+- Food, cramp, and theme actions are stubs
+
+## Author
+Sapana Dhakal - CIS 25 Practice Project
