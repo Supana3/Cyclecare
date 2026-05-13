@@ -83,7 +83,41 @@ void CycleCareApp::logPeriodAction() {
 }
 
 void CycleCareApp::logMoodAction() {
-    std::cout << "[CycleCareApp::logMoodAction] not yet implemented\n";
+    std::cout << "\n--- Log Mood ---\n";
+
+    std::string date;
+    std::cout << "Enter date (YYYY-MM-DD): ";
+    std::getline(std::cin, date);
+    if (date.empty()) {
+        std::cout << "Date is required. Mood not logged.\n";
+        return;
+    }
+
+    int level = 0;
+    std::cout << "Enter your mood level (1=low, 5=great): ";
+    if (!(std::cin >> level)) {
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cout << "Invalid input. Mood not logged.\n";
+        return;
+    }
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+    if (level < 1 || level > 5) {
+        std::cout << "Mood level must be between 1 and 5. Mood not logged.\n";
+        return;
+    }
+
+    std::string note;
+    std::cout << "Add a note (optional, press Enter to skip): ";
+    std::getline(std::cin, note);
+
+    MoodLog entry(date, level, note);
+    moodHistory.push_back(entry);
+
+    std::cout << "\nMood logged successfully!\n";
+    entry.display();
+    std::cout << "You have " << getMoodEntryCount() << " mood entries on record.\n";
 }
 
 void CycleCareApp::showPredictionAction() {

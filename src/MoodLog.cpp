@@ -1,63 +1,67 @@
 #include "MoodLog.h"
 #include <iostream>
 
+// Default constructor — empty/zeroed values, used as a placeholder
 MoodLog::MoodLog() {
     date = "";
     moodLevel = 0;
     note = "";
 }
 
+// Two-arg constructor — date + mood level, note left empty
 MoodLog::MoodLog(const std::string& logDate, int level) {
-    (void)logDate;
-    (void)level;
-    date = "";
-    moodLevel = 0;
+    date = logDate;
+    moodLevel = level;
     note = "";
-    std::cout << "[MoodLog::MoodLog(params)] not yet implemented\n";
 }
 
+// Three-arg constructor — date + mood level + free-text note
 MoodLog::MoodLog(const std::string& logDate, int level, const std::string& logNote) {
-    (void)logDate;
-    (void)level;
-    (void)logNote;
-    date = "";
-    moodLevel = 0;
-    note = "";
-    std::cout << "[MoodLog::MoodLog(params+note)] not yet implemented\n";
+    date = logDate;
+    moodLevel = level;
+    note = logNote;
 }
 
+// Getters
 std::string MoodLog::getDate() const {
-    return "";
+    return date;
 }
 
 int MoodLog::getMoodLevel() const {
-    return 0;
+    return moodLevel;
 }
 
 std::string MoodLog::getNote() const {
-    return "";
+    return note;
 }
 
+// Setters — moodLevel is clamped to the valid 1-5 range; invalid input is ignored
 void MoodLog::setMoodLevel(int level) {
-    (void)level;
-    std::cout << "[MoodLog::setMoodLevel] not yet implemented\n";
+    if (level >= 1 && level <= 5) {
+        moodLevel = level;
+    }
 }
 
 void MoodLog::setNote(const std::string& logNote) {
-    (void)logNote;
-    std::cout << "[MoodLog::setNote] not yet implemented\n";
+    note = logNote;
 }
 
+// Print a human-readable representation of this mood entry
 void MoodLog::display() const {
-    std::cout << "[MoodLog::display] not yet implemented\n";
+    std::cout << "  [" << date << "] Mood: " << moodLevel << "/5";
+    if (!note.empty()) {
+        std::cout << " - " << note;
+    }
+    std::cout << std::endl;
 }
 
+// File persistence — stubbed for now, will be implemented when
+// the File save/load feature is added.
 std::string MoodLog::toFileLine() const {
-    return ""; 
+    return "";
 }
 
 MoodLog MoodLog::fromFileLine(const std::string& line) {
     (void)line;
-    std::cout << "[MoodLog::fromFileLine] not yet implemented\n";
-    return MoodLog(); 
+    return MoodLog();
 }

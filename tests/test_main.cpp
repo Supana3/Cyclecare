@@ -2,6 +2,7 @@
 #include <cassert>
 #include <string>
 #include "../src/Cycle.h"
+#include "../src/MoodLog.h"
 
 
 void test_log_period_normal() {
@@ -64,6 +65,27 @@ void test_predict_next_period_year_rollover() {
     std::cout << " PASSED" << std::endl;
 }
 
+void test_mood_log_normal() {
+    std::cout << "Test 7: MoodLog stories values correctly...";
+    MoodLog log("2026-05-10", 4, "Feeling good!");
+    assert(log.getDate() == "2026-05-10");
+    assert(log.getMoodLevel() == 4);
+    assert(log.getNote() == "Feeling good!");
+    std::cout << " PASSED" << std::endl;
+}
+
+void test_mood_log_invalid_level_rejected() {
+    std::cout << "Test 8: MoodLog setMoodLevel rejects out-of-range values...";
+    MoodLog m("2026-05-10", 3);
+    m.setMoodLevel(7);
+    assert(m.getMoodLevel() == 3);
+    m.setMoodLevel(0);
+    assert(m.getMoodLevel() == 3);
+    m.setMoodLevel(5);
+    assert(m.getMoodLevel() == 5);
+    std::cout << " PASSED" << std::endl;
+}
+
 int main() {
     std::cout << "Running tests..." << std::endl;
     test_log_period_normal();
@@ -72,6 +94,8 @@ int main() {
         test_predict_next_period_normal();
         test_predict_next_period_no_log();
         test_predict_next_period_year_rollover();
+        test_mood_log_normal();
+        test_mood_log_invalid_level_rejected();
         std::cout << "\nAll tests passed." << std::endl;
         return 0;
 }
